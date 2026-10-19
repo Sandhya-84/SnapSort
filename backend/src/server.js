@@ -1,7 +1,7 @@
 ﻿import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-
+import eventRoutes from './routes/eventRoutes.js'
 dotenv.config()
 
 const app = express()
@@ -23,7 +23,7 @@ app.get('/api/health', (req, res) => {
     message: 'SnapSort backend is healthy'
   })
 })
-
+app.use('/api/events', eventRoutes)
 app.listen(PORT, () => {
   console.log(`SnapSort server running on http://localhost:${PORT}`)
 })
