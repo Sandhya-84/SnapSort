@@ -1,64 +1,89 @@
 
-import './App.css'
-import BackendTest from './BackendTest'
+import { Routes, Route, Link } from 'react-router-dom'
+
+import Layout from './components/Layout'
+
+import Home from './pages/Home'
+import Dashboard from './pages/Dashboard'
+import Events from './pages/Events'
+import EventGallery from './pages/EventGallery'
+import MediaUploadPage from './pages/MediaUploadPage'
+import People from './pages/People'
+import FindMyPhotos from './pages/FindMyPhotos'
+
+function NotFound() {
+  return (
+    <main className="mx-auto max-w-[900px] px-6 py-20 text-center">
+      <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#B64D32]">
+        Page not found
+      </p>
+
+      <h1 className="mt-4 font-serif text-5xl">
+        Lost in the archive?
+      </h1>
+
+      <p className="mt-5 text-sm leading-7 text-[#746257]">
+        This page does not exist. Return home to find your way.
+      </p>
+
+      <Link
+        to="/"
+        className="mt-7 inline-block bg-[#A9472E] px-6 py-3 text-sm font-semibold text-[#FFF8ED] transition hover:bg-[#853A28]"
+      >
+        Return home ↗
+      </Link>
+    </main>
+  )
+}
+
 function App() {
   return (
-    <div className="app">
-      <nav className="navbar">
-        <h2 className="logo">SnapSort<span>.</span></h2>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
 
-        <a href="#features" className="nav-link">
-          Features
-        </a>
-      </nav>
+        <Route path="/dashboard" element={<Dashboard />} />
 
-      <main className="hero">
-        <p className="tagline">AI-POWERED EVENT MEDIA</p>
+        <Route path="/events" element={<Events />} />
 
-        <h1>
-          Every moment.
-          <br />
-          <span>Find it instantly.</span>
-        </h1>
+        <Route
+          path="/events/:eventId/gallery"
+          element={<EventGallery />}
+        />
 
-        <p className="description">
-          Organize event photos and videos effortlessly.
-          SnapSort uses AI to help you find the moments
-          that matter most.
-        </p>
+        <Route
+          path="/media-upload"
+          element={<MediaUploadPage />}
+        />
 
-        <button
-          className="primary-button"
-          onClick={() => alert('SnapSort upload feature is coming soon!')}
-        >
-          Get Started →
-        </button>
+        <Route
+          path="/events/:eventId/upload"
+          element={<MediaUploadPage />}
+        />
 
-        <section id="features" className="features">
-          <div className="feature-card">
-            <span className="feature-icon">📸</span>
-            <h3>Smart Galleries</h3>
-            <p>Keep event photos organized in one place.</p>
-          </div>
+        <Route
+          path="/people"
+          element={<People />}
+        />
 
-          <div className="feature-card">
-            <span className="feature-icon">✨</span>
-            <h3>AI Face Grouping</h3>
-            <p>Group photos featuring the same person.</p>
-          </div>
+        <Route
+          path="/events/:eventId/people"
+          element={<People />}
+        />
 
-          <div className="feature-card">
-            <span className="feature-icon">🔎</span>
-            <h3>Quick Discovery</h3>
-            <p>Make finding your favorite moments easier.</p>
-          </div>
-        </section>
-      </main>
+        <Route
+          path="/find-my-photos"
+          element={<FindMyPhotos />}
+        />
 
-      <footer>
-        © 2026 SnapSort · Your memories, organized.
-      </footer>
-    </div>
+        <Route
+          path="/events/:eventId/find-my-photos"
+          element={<FindMyPhotos />}
+        />
+
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   )
 }
 
